@@ -10,8 +10,12 @@ class User
     def execute_sql_file(filename)
         sql = File.read(filename)
         statements = sql.split(/;\n/)
-        statements.each {|stmt| @db.execute(stmt)}
-    end
+        statements.each do |stmt|
+          next if stmt.strip.empty?
+          @db.execute(stmt)
+        end
+      end
+      
 
     def create(firstname, lastname, age, email, password)
         puts "Creating user with firstname: #{firstname}, lastname: #{lastname}, age: #{age}, email: #{email}, password: #{password}"
@@ -23,7 +27,7 @@ class User
     end
 
     def find(user_id)
-        result = @db.execute("SELECT * FROM users WHERE user_id = ?", user_id).first
+        result = @db.execute("SELECT * FROM users WHERE id = ?", user_id).first
         result ? result_to_user_object(result) : nil
     end
 
@@ -36,7 +40,7 @@ class User
     end
 
     def destroy(user_id)
-        @db.execute("DELETE FROM users WHERE user_id = ?", user_id)
+        @db.execute("DELETE FROM users WHERE id = ?", user_id)
     end
 
     private
@@ -55,6 +59,13 @@ end
   
 user = User.new
 
-user.create("John", "Doe", 30, "johndoe@gmail.com", "password1234")
+user.create("William", "Wall", 30, "willwall@gmail.com", "password1234")
 
-puts user.all
+#puts user.all
+
+=begin
+user_id_to_delete = []
+user_id_to_delete.each do |user_id|
+    user.destroy(user_id)
+end
+=end
