@@ -49,8 +49,24 @@ class User
 
   def self.update(user_id, user_info)
     db = SQLite3::Database.new("sql.db")
-    db.execute("UPDATE users SET firstname = ?, lastname = ?, age = ?, email = ?, password = ? WHERE id = ?",
-               [user_info['firstname'], user_info['lastname'], user_info['age'], user_info['email'], user_info['password'], user_id])
+    query = <<~SQL
+      UPDATE users SET
+        firstname = ?,
+        lastname = ?,
+        age = ?,
+        email = ?,
+        password = ?
+      WHERE id = ?
+    SQL
+    db.execute(query, [
+      user_info['firstname'],
+      user_info['lastname'],
+      user_info['age'],
+      user_info['email'],
+      user_info['password'],
+      user_id
+    ])
+
   end
 
   def self.destroy(user_id)
@@ -75,11 +91,11 @@ class User
   end
 end
 user_info = {
-  'firstname' => 'Rich',
-  'lastname' => 'Garcia',
-  'age' => 42,
-  'email' => 'RichGarcia@yahoo.com',
-  'password' => 'Richy123'
+  'firstname' => 'John',
+  'lastname' => 'Smith',
+  'age' => 35,
+  'email' => 'JohnSmith@gmail.com',
+  'password' => 'John123'
 }
 
 
@@ -87,7 +103,7 @@ User.initialize
 #User.create(user_info)
 #puts User.update(user_id, updated_info)
 #User.destroy_all
-# User.destroy(105)
+ User.destroy(131)
  puts User.all
 #puts User.find(94)
-
+#User.update(131, 'John321')
