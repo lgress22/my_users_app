@@ -91,11 +91,11 @@ class User
   end
 end
 user_info = {
-  'firstname' => 'John',
-  'lastname' => 'Smith',
-  'age' => 35,
-  'email' => 'JohnSmith@gmail.com',
-  'password' => 'John123'
+  'firstname' => 'Stan',
+  'lastname' => 'Roosevelt',
+  'age' => 42,
+  'email' => 'StanBoy@hotmail.com',
+  'password' => 'Stan123'
 }
 
 
@@ -103,7 +103,7 @@ User.initialize
 #User.create(user_info)
 #puts User.update(user_id, updated_info)
 #User.destroy_all
- User.destroy(131)
+ #User.destroy(135)
  puts User.all
 #puts User.find(94)
 #User.update(131, 'John321')
